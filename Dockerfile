@@ -16,4 +16,4 @@ RUN mkdir -p /root/.vnc && echo "password" | vncpasswd -f > /root/.vnc/passwd &&
 RUN touch /root/.Xauthority
 EXPOSE 5901
 EXPOSE 6080
-CMD bash -c "if [ -n \"${VNC_PASSWORD}\" ]; then echo \"${VNC_PASSWORD}\" | vncpasswd -f > /root/.vnc/passwd && chmod 600 /root/.vnc/passwd; fi && vncserver -localhost no -geometry 1024x768 && websockify -D --web=/usr/share/novnc/ ${PORT:-6080} localhost:5901 && tail -f /dev/null"
+CMD bash -c "if [ -n \"${VNC_PASSWORD}\" ]; then echo \"${VNC_PASSWORD}\" | vncpasswd -f > /root/.vnc/passwd && chmod 600 /root/.vnc/passwd; fi && vncserver -localhost no -geometry 1024x768 && websockify --web=/usr/share/novnc/ ${PORT:-6080} localhost:5901"
