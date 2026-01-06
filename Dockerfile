@@ -14,6 +14,6 @@ RUN apt update -y && apt install -y xubuntu-icon-theme
 RUN touch /root/.Xauthority
 EXPOSE 5901
 EXPOSE 6080
-RUN curl -fsSL https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux-amd64.tgz -o ngrok.tgz && tar -xvzf ngrok.tgz -C /usr/local/bin && rm ngrok.tgz
 
-CMD bash -c "mkdir -p /root/.vnc && echo \"${VNC_PASSWORD:-password}\" | vncpasswd -f > /root/.vnc/passwd && chmod 600 /root/.vnc/passwd && vncserver -localhost no -geometry 1024x768 && ngrok config add-authtoken ${NGROK_AUTHTOKEN} && (ngrok tcp 5901 --log=stdout &) && websockify -D --web=/usr/share/novnc/ ${PORT:-6080} localhost:5901 && tail -f /dev/null"
+
+CMD bash -c "mkdir -p /root/.vnc && echo \"${VNC_PASSWORD:-password}\" | vncpasswd -f > /root/.vnc/passwd && chmod 600 /root/.vnc/passwd && vncserver -localhost no -geometry 1024x768 && websockify -D --web=/usr/share/novnc/ ${PORT:-6080} localhost:5901 && tail -f /dev/null"
